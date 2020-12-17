@@ -57,15 +57,9 @@ double get_repeatable_random_set_variance(int n, int bootstrap){
         random_cnt_hashtable[val].cnt++;
     }
     double variance = 0.0;
-    int sample_size = (1 + n) * n / 2;
-    double average = 0.0;
-    for(auto entry : random_cnt_hashtable){
-        average += entry.second.cnt * 1.0/ bootstrap;
-    }
-    average = average / n;
     for(auto entry : random_cnt_hashtable){
         entry.second.probability = entry.second.cnt * 1.0/ bootstrap;
-        variance += (entry.second.probability - average) * (entry.second.probability - average);
+        variance += (entry.second.probability - 1.0 / n) * (entry.second.probability - 1.0 / n);
     }
     return variance / (n - 1);
 
@@ -89,6 +83,7 @@ std::vector<double> get_repeatable_random_variance_list(int n, int min_bootstrap
     }
     return variance_vec;
 }
+
 // 验证当数据量增大的时候，如果方差越来越小，可以证明是等概率的。
 bool verify(std::vector<double> & variance_list){
     for(int i = 1; i < variance_list.size(); i++){
