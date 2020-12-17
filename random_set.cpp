@@ -6,10 +6,14 @@
 class RandomSet {
 public:
 
-    RandomSet(bool is_repeatable) {
+    RandomSet(bool is_repeatable, int random_seed) {
         is_repeatable = is_repeatable;
         size = 0;
-        e.seed(32767)
+        e.seed(random_seed);
+    }
+
+    bool find(int val) {
+        return !item_idxs_with_val[val].empty();
     }
 
     bool insert(int val) {
