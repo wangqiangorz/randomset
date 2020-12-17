@@ -67,7 +67,7 @@ double get_repeatable_random_set_variance(int n, int bootstrap){
         entry.second.probability = entry.second.cnt * 1.0/ bootstrap;
         variance += (entry.second.probability - average) * (entry.second.probability - average);
     }
-    return variance / (sample_size - 1);
+    return variance / (n - 1);
 
 }
 
